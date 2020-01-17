@@ -8,6 +8,8 @@ if(MSVC)
 	add_definitions(-DNOMINMAX)
 endif(MSVC)
 
+add_definitions(-DID_VULKAN)
+
 # Clasify sources according to folder structure. Useful for having nice visual studio filters.
 # This macro is derived from http://www.cmake.org/pipermail/cmake/2013-November/056336.html
 macro(GroupSources curdir dirLabel)
@@ -28,3 +30,7 @@ file(GLOB_RECURSE D3XP_SOURCE_FILES "*.cpp" "*.h")
 GroupSources(./ src)
 add_library(d3xp STATIC ${D3XP_SOURCE_FILES})
 target_include_directories (d3xp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
+target_precompile_headers (d3xp PUBLIC ../framework/precompiled.h)
+
+find_package(Vulkan REQUIRED)
+target_include_directories(d3xp PUBLIC ${Vulkan_INCLUDE_DIRS})
