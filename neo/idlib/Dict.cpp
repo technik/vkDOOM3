@@ -485,11 +485,11 @@ WriteString
 ================
 */
 static void WriteString( const char *s, idFile *f ) {
-	int	len = strlen( s );
+	int	len = (int)strlen( s );
 	if ( len >= MAX_STRING_CHARS-1 ) {
 		idLib::Error( "idDict::WriteToFileHandle: bad string" );
 	}
-	f->Write( s, strlen(s) + 1 );
+	f->Write( s, (int)strlen(s) + 1 );
 }
 
 /*
@@ -575,7 +575,7 @@ const idKeyValue *idDict::MatchPrefix( const char *prefix, const idKeyValue *las
 	int start;
 
 	assert( prefix );
-	len = strlen( prefix );
+	len = (int)strlen( prefix );
 
 	start = -1;
 	if ( lastMatch ) {
